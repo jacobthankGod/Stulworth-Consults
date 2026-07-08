@@ -68,41 +68,53 @@
 .horiz-img img {
   width: 100%; height: 100%;
   object-fit: cover;
-  opacity: 0.3;
 }
 .horiz-img::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, var(--cap-bg) 30%, transparent 80%);
+  background: rgba(0,0,0,0.15);
 }
 /* Content */
 .horiz-panel-inner {
   position: relative;
   z-index: 1;
-  max-width: 560px;
+  max-width: 540px;
   color: #fff;
+  padding: var(--s-6) var(--s-7);
+  border-radius: var(--r-xl);
+  isolation: isolate;
+}
+.horiz-panel-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: inherit;
+  z-index: -1;
 }
 .horiz-panel-inner .horiz-num {
   display: block;
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.4rem, 6vw, 4rem);
   font-weight: 700;
   line-height: 0.85;
-  opacity: 0.12;
-  margin-bottom: var(--s-4);
+  opacity: 0.2;
+  margin-bottom: var(--s-3);
   user-select: none;
 }
 .horiz-panel-inner h3 {
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-size: clamp(1.6rem, 3.4vw, 2.6rem);
   line-height: 1.08;
-  margin: 0 0 var(--s-4);
+  margin: 0 0 var(--s-3);
   color: #fff;
 }
 .horiz-panel-inner p {
   font-size: var(--fs-lead);
-  color: rgba(255,255,255,0.75);
-  max-width: 520px;
-  margin-bottom: var(--s-5);
+  color: rgba(255,255,255,0.8);
+  max-width: 480px;
+  margin-bottom: var(--s-4);
 }
 .horiz-panel-inner .horiz-tags {
   display: inline-block;
@@ -110,9 +122,9 @@
   font-size: 0.82rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.6);
   padding: var(--s-1) var(--s-4);
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: var(--r-pill);
 }
 
