@@ -81,6 +81,10 @@
   transition: background var(--dur-fast), color var(--dur-fast);
 }
 .mega a.sub:hover { background: var(--accent-tint); color: var(--accent-deep); }
+/* Keep mega menu text dark even when header is in dark mode */
+.site-header.header--dark .mega a.sub { color: var(--ink-soft); }
+.site-header.header--dark .mega a.sub:hover { background: var(--accent-tint); color: var(--accent-deep); }
+.site-header.header--dark .mega h5 { color: var(--muted); }
 
 /* Mobile nav ----------------------------------------------------------- */
 .nav-toggle {
