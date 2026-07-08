@@ -28,8 +28,7 @@
       ? Math.max(0, Math.min(1, (done - pinDone) / scrollNeeded))
       : 0;
 
-    var x = Math.max(0, -p * scrollW);
-    track.style.transform = 'translateX(' + x + 'px)';
+    track.style.transform = 'translateX(' + (-p * scrollW) + 'px)';
   }
 
   function resize() {
@@ -38,10 +37,9 @@
     var stickyH = sticky ? sticky.offsetHeight : window.innerHeight;
     var head = section.querySelector('.container');
     var headH = head ? head.offsetHeight : 0;
-    var overflow = Math.max(0, track.scrollWidth - window.innerWidth);
-    section.style.minHeight = Math.ceil(stickyH + headH + overflow + 120) + 'px';
+    section.style.minHeight = Math.ceil(stickyH + headH + scrollW + 120) + 'px';
 
-    scrollNeeded = overflow + 120;
+    scrollNeeded = scrollW + 120;
 
     if (!measured && sticky) {
       var sr = section.getBoundingClientRect();

@@ -47,7 +47,6 @@
 }
 .horiz-track {
   display: flex; gap: 0;
-  will-change: transform;
 }
 .horiz-panel {
   flex: 0 0 100vw;
