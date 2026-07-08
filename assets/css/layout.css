@@ -394,11 +394,11 @@ section { padding: var(--s-9) 0; }
   .pin-slide-body h4 { font-size: 1.2rem; }
   .pin-slide-body p { font-size: 0.9rem; }
   .pin-slide::before { border-radius: var(--r-md); }
-  .cap-panel { min-height: 80vh; padding: var(--s-8) 0; }
-  .cap-img-wrap img { opacity: 0.2; }
-  .cap-img-wrap::after { background: linear-gradient(to top, var(--cap-bg) 20%, transparent 50%); }
-  .cap-content { width: 100%; }
-  .cap-tags { font-size: 0.72rem; }
+  .horiz-panel { padding: var(--s-6) var(--s-5); flex-direction: column; text-align: center; justify-content: center; }
+  .horiz-img img { opacity: 0.15; }
+  .horiz-img::after { background: linear-gradient(to top, var(--cap-bg) 20%, transparent 50%); }
+  .horiz-panel-inner p { margin-left: auto; margin-right: auto; }
+  .horiz-tags { font-size: 0.72rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
