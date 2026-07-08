@@ -8,16 +8,20 @@
 
   // Clip-reveal for images (insight lead, etc.)
   var clipEls = document.querySelectorAll('.clip-reveal');
-  if (clipEls.length && 'IntersectionObserver' in window) {
-    var clipIo = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          clipIo.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    clipEls.forEach(function (el) { clipIo.observe(el); });
+  if (clipEls.length) {
+    if (!reduce && typeof Lenis !== 'undefined') {
+      clipEls.forEach(function (el) { el.classList.add('revealed'); });
+    } else if ('IntersectionObserver' in window) {
+      var clipIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            clipIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      clipEls.forEach(function (el) { clipIo.observe(el); });
+    }
   }
 
   if (!reduce) {
