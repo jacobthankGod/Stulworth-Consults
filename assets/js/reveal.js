@@ -6,18 +6,7 @@
   var supportsView = (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline: view()'));
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Clip-reveal for images (insight lead, etc.)
-  // Use rAF so the browser paints the initial clipped state before
-  // transitioning to visible — compatible with Lenis and native scroll.
-  var clipEls = document.querySelectorAll('.clip-reveal');
-  if (clipEls.length) {
-    requestAnimationFrame(function () {
-      clipEls.forEach(function (el) { el.classList.add('revealed'); });
-    });
-  }
-
   if (!reduce) {
-    // Also observe .clip-reveal for view-timeline support
     if (supportsView) return; // CSS handles it
   }
 

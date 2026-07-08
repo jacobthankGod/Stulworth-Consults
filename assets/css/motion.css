@@ -30,12 +30,12 @@
 @keyframes slide-reveal {
   to { clip-path: inset(0 0 0 0); }
 }
-.ins-lead img.clip-reveal {
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 1.2s var(--ease) 0.3s;
+.ins-lead img {
+  animation: ins-fade-in 1.2s var(--ease) 0.3s both;
 }
-.ins-lead img.revealed {
-  clip-path: inset(0 0 0 0);
+@keyframes ins-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* ---- Sticky horizontal scroll ---- */
