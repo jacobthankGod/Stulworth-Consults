@@ -1,18 +1,20 @@
-/* reveal.js — fallback reveal + clip-reveal for images */
+/* reveal.js — IntersectionObserver fallback for .reveal elements */
 (function () {
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 
-  var supportsView = (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline: view()'));
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!reduce) {
-    if (supportsView) return; // CSS handles it
+  // view() timeline doesn't reliably fire on file:// protocol. Treat as unsupported.
+  var isFile = window.location.protocol === 'file:';
+  var supportsView = !isFile && !reduce && typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline: view()');
+
+  if (supportsView) {
+    // CSS scroll-driven animation handles the reveal. Nothing else needed.
+    return;
   }
 
-  // Modern browsers animate .reveal via CSS view() timeline; nothing to do.
-  if (supportsView || reduce) return;
-
+  // Fallback: IntersectionObserver
   document.body.classList.add('reveal--io');
   var els = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window) || !els.length) {
