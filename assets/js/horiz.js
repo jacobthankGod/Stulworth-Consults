@@ -64,6 +64,7 @@
   }
 
   window.addEventListener('resize', onResize, { passive: true });
+  window.addEventListener('scroll', update, { passive: true });
 
   // Hook into Lenis (already initialized by smooth.js before this runs)
   if (window.lenis) window.lenis.on('scroll', update);
