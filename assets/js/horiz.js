@@ -52,6 +52,8 @@
     var target = scrollW + 120 + window.innerHeight + headSpace - headerH;
     section.style.minHeight = Math.ceil(target) + 'px';
 
+    if (window.lenis) window.lenis.resize();
+
     update();
   }
 
@@ -62,20 +64,16 @@
   }
 
   window.addEventListener('resize', onResize, { passive: true });
-  window.addEventListener('scroll', update, { passive: true });
 
-  // Hook into Lenis if it exists
-  var checkLenis = setInterval(function () {
-    if (typeof Lenis !== 'undefined' && window.lenis) {
-      window.lenis.on('scroll', update);
-      clearInterval(checkLenis);
-    }
-  }, 200);
-  setTimeout(function () { clearInterval(checkLenis); }, 3000);
+  // Hook into Lenis (already initialized by smooth.js before this runs)
+  if (window.lenis) window.lenis.on('scroll', update);
 
   resize();
 
   window.addEventListener('load', function () {
-    setTimeout(resize, 300);
+    setTimeout(function () {
+      resize();
+      if (window.lenis) window.lenis.resize();
+    }, 300);
   });
 })();
