@@ -38,65 +38,75 @@
   to { opacity: 1; }
 }
 
-/* ---- Sticky horizontal scroll ---- */
-.horiz-section { position: relative; }
-.horiz-sticky {
-  position: sticky; top: var(--header-h, 70px);
-  height: 100vh; overflow: hidden;
-  display: flex; align-items: center;
+/* ---- Capabilities — Full-screen stacked panels ---- */
+.cap-stack {
+  display: flex;
+  flex-direction: column;
 }
-.horiz-track {
-  display: flex; gap: 0;
-  will-change: transform;
-}
-.horiz-panel {
-  flex: 0 0 100vw;
-  min-height: 60vh;
-  display: flex; align-items: center;
-  padding: clamp(32px, 5vw, 80px);
-  padding-left: clamp(40px, 8vw, 120px);
+.cap-panel {
   position: relative;
-  background: hsla(var(--p-hue, 0), var(--p-sat, 0%), var(--p-lum, 50%), 0.035);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--cap-bg);
+  overflow: hidden;
+  padding: clamp(32px, 5vw, 80px) 0;
 }
-.horiz-panel:nth-child(odd) {
-  background: hsla(var(--p-hue, 0), var(--p-sat, 0%), var(--p-lum, 50%), 0.06);
-}
-.horiz-svg {
+.cap-img-wrap {
   position: absolute;
-  top: 50%; right: 0;
-  transform: translateY(-50%);
-  width: clamp(200px, 38vw, 380px);
-  pointer-events: none;
-  opacity: 0.7;
+  inset: 0;
+  z-index: 0;
 }
-.horiz-panel-inner {
-  max-width: 560px;
+.cap-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+}
+.cap-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--cap-bg) 30%, transparent 80%);
+}
+.cap-content {
   position: relative;
   z-index: 1;
+  width: min(620px, 100%);
+  padding: 0 var(--gutter);
+  color: #fff;
 }
-.horiz-panel .ghost-num {
-  position: static;
+.cap-num {
   font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
   line-height: 0.85;
-  opacity: 0.12;
-  background: linear-gradient(135deg, hsla(var(--p-hue,0),var(--p-sat,0%),var(--p-lum,50%),0.4), hsla(var(--p-hue,0),calc(var(--p-sat)*0.6),var(--p-lum,50%),0.1));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  display: block;
+  opacity: 0.15;
+  margin-bottom: var(--s-4);
+  user-select: none;
 }
-.horiz-panel h3 { font-size: clamp(1.6rem, 3.4vw, 2.8rem); margin: var(--s-4) 0 var(--s-3); line-height: 1.08; color: hsl(var(--p-hue,0), calc(var(--p-sat)*0.5), calc(var(--p-lum)*0.35)); }
-.horiz-panel p { font-size: var(--fs-lead); color: var(--muted); max-width: 540px; }
-.horiz-panel .meta {
+.cap-content h3 {
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1.08;
+  margin: 0 0 var(--s-4);
+  color: #fff;
+}
+.cap-content p {
+  font-size: var(--fs-lead);
+  color: rgba(255,255,255,0.75);
+  max-width: 520px;
+  margin-bottom: var(--s-5);
+}
+.cap-tags {
   display: inline-block;
-  margin-top: var(--s-3);
   font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.03em;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: hsl(var(--p-hue,0), var(--p-sat), calc(var(--p-lum)*0.65));
-  padding: var(--s-1) var(--s-3);
+  color: rgba(255,255,255,0.6);
+  padding: var(--s-1) var(--s-4);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: var(--r-pill);
-  background: hsla(var(--p-hue,0), var(--p-sat), var(--p-lum), 0.1);
 }
 
 /* ---- Pin-stack process (vertical slide) ---- */
