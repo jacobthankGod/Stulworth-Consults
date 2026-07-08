@@ -394,7 +394,9 @@ section { padding: var(--s-9) 0; }
   .pin-slide-body h4 { font-size: 1.2rem; }
   .pin-slide-body p { font-size: 0.9rem; }
   .pin-slide::before { border-radius: var(--r-md); }
-  .horiz-panel { padding: var(--s-6) var(--s-5); }
+  .horiz-panel { padding: var(--s-6) var(--s-5); flex-direction: column; text-align: center; }
+  .horiz-svg { display: none; }
+  .horiz-panel .meta { font-size: 0.75rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -52,20 +52,52 @@
 .horiz-panel {
   flex: 0 0 100vw;
   min-height: 60vh;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center;
   padding: clamp(32px, 5vw, 80px);
+  padding-left: clamp(40px, 8vw, 120px);
+  position: relative;
+  background: hsla(var(--p-hue, 0), var(--p-sat, 0%), var(--p-lum, 50%), 0.035);
+}
+.horiz-panel:nth-child(odd) {
+  background: hsla(var(--p-hue, 0), var(--p-sat, 0%), var(--p-lum, 50%), 0.06);
+}
+.horiz-svg {
+  position: absolute;
+  top: 50%; right: 0;
+  transform: translateY(-50%);
+  width: clamp(200px, 38vw, 380px);
+  pointer-events: none;
+  opacity: 0.7;
 }
 .horiz-panel-inner {
-  max-width: 720px;
+  max-width: 560px;
+  position: relative;
+  z-index: 1;
 }
 .horiz-panel .ghost-num {
   position: static;
   font-size: clamp(3rem, 8vw, 6rem);
   line-height: 0.85;
-  opacity: 0.2;
+  opacity: 0.12;
+  background: linear-gradient(135deg, hsla(var(--p-hue,0),var(--p-sat,0%),var(--p-lum,50%),0.4), hsla(var(--p-hue,0),calc(var(--p-sat)*0.6),var(--p-lum,50%),0.1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.horiz-panel h3 { font-size: clamp(1.6rem, 3.4vw, 2.8rem); margin: var(--s-4) 0 var(--s-3); line-height: 1.08; }
+.horiz-panel h3 { font-size: clamp(1.6rem, 3.4vw, 2.8rem); margin: var(--s-4) 0 var(--s-3); line-height: 1.08; color: hsl(var(--p-hue,0), calc(var(--p-sat)*0.5), calc(var(--p-lum)*0.35)); }
 .horiz-panel p { font-size: var(--fs-lead); color: var(--muted); max-width: 540px; }
+.horiz-panel .meta {
+  display: inline-block;
+  margin-top: var(--s-3);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: hsl(var(--p-hue,0), var(--p-sat), calc(var(--p-lum)*0.65));
+  padding: var(--s-1) var(--s-3);
+  border-radius: var(--r-pill);
+  background: hsla(var(--p-hue,0), var(--p-sat), var(--p-lum), 0.1);
+}
 
 /* ---- Pin-stack process (vertical slide) ---- */
 .pin-sticky {
