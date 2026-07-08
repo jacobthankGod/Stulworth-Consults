@@ -16,8 +16,6 @@
   var scrollNeeded = 0;
   var scrollW = 0;
   var measured = false;
-  var ticking = false;
-  var rafId = null;
 
   function update() {
     var rect = section.getBoundingClientRect();
@@ -30,21 +28,11 @@
       ? Math.max(0, Math.min(1, (done - pinDone) / scrollNeeded))
       : 0;
 
-    track.style.transform = 'translateX(' + (-p * scrollW) + 'px)';
-    ticking = false;
-  }
-
-  function onScroll() {
-    if (!ticking) {
-      rafId = requestAnimationFrame(update);
-      ticking = true;
-    }
+    var x = Math.max(0, -p * scrollW);
+    track.style.transform = 'translateX(' + x + 'px)';
   }
 
   function resize() {
-    if (rafId) cancelAnimationFrame(rafId);
-    ticking = false;
-
     scrollW = Math.max(0, track.scrollWidth - window.innerWidth);
     var sticky = document.querySelector('.horiz-sticky');
     var stickyH = sticky ? sticky.offsetHeight : window.innerHeight;
@@ -61,7 +49,7 @@
       measured = true;
     }
 
-    onScroll();
+    update();
   }
 
   var resizeTimer;
@@ -71,6 +59,21 @@
   }
 
   window.addEventListener('resize', onResize, { passive: true });
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', update, { passive: true });
+
+  // Hook into Lenis if it exists (smooth scroll on index.html)
+  var checkLenis = setInterval(function () {
+    if (typeof Lenis !== 'undefined' && window.lenis) {
+      window.lenis.on('scroll', update);
+      clearInterval(checkLenis);
+    }
+  }, 200);
+  setTimeout(function () { clearInterval(checkLenis); }, 3000);
+
   resize();
+
+  // Re-check assets after lazy images load
+  window.addEventListener('load', function () {
+    setTimeout(resize, 300);
+  });
 })();

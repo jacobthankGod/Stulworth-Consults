@@ -8,6 +8,7 @@
 
   if (!reduce && typeof Lenis !== 'undefined') {
     lenis = new Lenis({ lerp: 0.1, duration: 1.2, smoothWheel: true });
+    window.lenis = lenis;
     (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
     lenis.on('scroll', function (e) { update(e.progress || 0); });
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
