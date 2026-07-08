@@ -13,19 +13,24 @@
   }
 
   var headSpace = 0;
-  var scrollNeeded = 0;
   var scrollW = 0;
-  var measured = false;
+  var headerH = 70;
 
   function update() {
     var rect = section.getBoundingClientRect();
     var vh = window.innerHeight;
-    var done = vh - rect.top;
 
-    var headerH = 70;
-    var pinDone = vh - headerH + headSpace;
-    var p = scrollNeeded > 0
-      ? Math.max(0, Math.min(1, (done - pinDone) / scrollNeeded))
+    // How far the section has scrolled past the pin point
+    // Pin happens when the sticky's top reaches headerH from viewport top
+    // i.e., when section's top = headerH - headSpace
+    var pinOffset = headerH - rect.top - headSpace;
+
+    // Available scroll distance while the sticky is pinned
+    // = section total height - viewport - vertical space before sticky + header
+    var totalPin = section.scrollHeight - vh - headSpace + headerH;
+
+    var p = totalPin > 0
+      ? Math.max(0, Math.min(1, pinOffset / totalPin))
       : 0;
 
     track.style.transform = 'translateX(' + (-p * scrollW) + 'px)';
@@ -34,18 +39,18 @@
   function resize() {
     scrollW = Math.max(0, track.scrollWidth - window.innerWidth);
     var sticky = document.querySelector('.horiz-sticky');
-    var stickyH = sticky ? sticky.offsetHeight : window.innerHeight;
-    var head = section.querySelector('.container');
-    var headH = head ? head.offsetHeight : 0;
-    section.style.minHeight = Math.ceil(stickyH + headH + scrollW + 120) + 'px';
+    if (!sticky) return;
 
-    scrollNeeded = scrollW + 120;
+    // Measure headSpace first (doesn't depend on minHeight)
+    var sr = section.getBoundingClientRect();
+    headSpace = sticky.getBoundingClientRect().top - sr.top;
 
-    if (!measured && sticky) {
-      var sr = section.getBoundingClientRect();
-      headSpace = sticky.getBoundingClientRect().top - sr.top;
-      measured = true;
-    }
+    // Set minHeight so available pin scroll exactly fits scrollW + 120px buffer
+    // availablePin = section.scrollHeight - vh - headSpace + headerH
+    // We want: section.scrollHeight - vh - headSpace + headerH = scrollW + 120
+    // So: section.scrollHeight = scrollW + 120 + vh + headSpace - headerH
+    var target = scrollW + 120 + window.innerHeight + headSpace - headerH;
+    section.style.minHeight = Math.ceil(target) + 'px';
 
     update();
   }
@@ -59,7 +64,7 @@
   window.addEventListener('resize', onResize, { passive: true });
   window.addEventListener('scroll', update, { passive: true });
 
-  // Hook into Lenis if it exists (smooth scroll on index.html)
+  // Hook into Lenis if it exists
   var checkLenis = setInterval(function () {
     if (typeof Lenis !== 'undefined' && window.lenis) {
       window.lenis.on('scroll', update);
@@ -70,7 +75,6 @@
 
   resize();
 
-  // Re-check assets after lazy images load
   window.addEventListener('load', function () {
     setTimeout(resize, 300);
   });
