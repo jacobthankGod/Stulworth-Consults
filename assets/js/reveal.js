@@ -1,20 +1,8 @@
-/* reveal.js — IntersectionObserver fallback for .reveal elements */
+/* reveal.js — make .reveal elements visible via IntersectionObserver */
 (function () {
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // view() timeline doesn't reliably fire on file:// protocol. Treat as unsupported.
-  var isFile = window.location.protocol === 'file:';
-  var supportsView = !isFile && !reduce && typeof CSS !== 'undefined' && CSS.supports && CSS.supports('animation-timeline: view()');
-
-  if (supportsView) {
-    // CSS scroll-driven animation handles the reveal. Nothing else needed.
-    return;
-  }
-
-  // Fallback: IntersectionObserver
   document.body.classList.add('reveal--io');
   var els = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window) || !els.length) {
