@@ -13,7 +13,7 @@
   }
 
   var headSpace = 0;     // natural distance from section top to sticky top
-  var scrollNeeded = 0;  // stickyH + overflow
+  var scrollNeeded = 0;  // overflow + 120 (p=1 when sticky unpins)
   var measured = false;
 
   function update() {
@@ -40,7 +40,7 @@
     var headH = head ? head.offsetHeight : 0;
     section.style.minHeight = Math.ceil(stickyH + headH + overflow + 120) + 'px';
 
-    scrollNeeded = stickyH + overflow;
+    scrollNeeded = overflow + 120;
 
     if (!measured && sticky) {
       var sr = section.getBoundingClientRect();
