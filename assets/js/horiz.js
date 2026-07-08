@@ -34,6 +34,10 @@
       : 0;
 
     track.style.transform = 'translateX(' + (-p * scrollW) + 'px)';
+
+    // Release sticky before pin point so heading scrolls up naturally
+    var sticky = document.querySelector('.horiz-sticky');
+    if (sticky) sticky.style.position = pinOffset < 0 ? 'relative' : '';
   }
 
   function resize() {
