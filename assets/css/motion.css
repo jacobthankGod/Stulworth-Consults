@@ -126,6 +126,25 @@
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: var(--r-pill);
 }
+/* Heading panel for capabilities intro */
+.horiz-panel--intro {
+  display: flex; align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.horiz-panel--intro .section-head {
+  margin-bottom: 0;
+}
+.horiz-panel--intro .section-head .sec-index {
+  color: var(--accent);
+  margin-bottom: var(--s-4);
+}
+.horiz-panel--intro .section-head h2 {
+  color: inherit;
+}
+.horiz-panel--intro .section-head p {
+  color: var(--muted);
+}
 
 /* ---- Pin-stack process (vertical slide) ---- */
 .pin-sticky {
