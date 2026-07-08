@@ -47,6 +47,14 @@
 .svc-category .head h2 { font-size: var(--fs-h2); }
 .svc-category .head p { color: var(--muted); max-width: 520px; }
 
+.svc-details { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-5); margin-top: var(--s-6); padding-top: var(--s-6); border-top: 1px solid var(--line); }
+.svc-detail-item { display: flex; flex-direction: column; gap: 4px; }
+.svc-detail-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); }
+.svc-detail-value { font-size: 0.95rem; color: var(--muted); line-height: 1.5; }
+.band--dark .svc-details { border-top-color: rgba(255,255,255,0.12); }
+.band--dark .svc-detail-value { color: rgba(255,255,255,0.8); }
+@media (max-width: 640px) { .svc-details { grid-template-columns: 1fr; } }
+
 /* Contact page */
 .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: var(--s-7); align-items: start; }
 .contact-info .panel { padding: var(--s-6); }
